@@ -1,6 +1,7 @@
-# OpenstexAdaptersExOvh
+# Openstex.Adapters.Ovh
 
-An adapter for [Openstex](https://github.com/stephenmoloney/openstex) for the OVH api.
+An adapter for [Openstex](https://github.com/stephenmoloney/openstex)
+for the [OVH API](https://github.com/stephenmoloney/ex_ovh).
 
 
 ## Steps to getting started
