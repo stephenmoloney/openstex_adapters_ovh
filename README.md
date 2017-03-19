@@ -93,16 +93,16 @@ config :httpipe,
 ```elixir
 defmodule MyApp.Client do
   @moduledoc :false
-  use Openstex.Client, otp_app: :openstex_catchup, client: __MODULE__
+  use Openstex.Client, otp_app: :my_app, client: __MODULE__
 
   defmodule Swift do
     @moduledoc :false
-    use Openstex.Swift.V1.Helpers, otp_app: :openstex_catchup, client: MyApp.Client
+    use Openstex.Swift.V1.Helpers, otp_app: :my_app, client: MyApp.Client
   end
 
   defmodule Ovh do
     @moduledoc :false
-    use ExOvh.Client, otp_app: :openstex_catchup, client: __MODULE__
+    use ExOvh.Client, otp_app: :my_app, client: __MODULE__
   end
 end
 ```

@@ -49,7 +49,7 @@ defmodule OpenstexAdaptersOvh.Mixfile do
     %{
       licenses: ["MIT"],
       maintainers: ["Stephen Moloney"],
-      links: %{ "GitHub" => "https://github.com/stephenmoloney/openstex"},
+      links: %{ "GitHub" => "https://github.com/stephenmoloney/openstex_adapters_ovh"},
       files: ~w(lib mix.exs CHANGELOG* README* LICENCE*)
      }
   end

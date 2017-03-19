@@ -1,6 +1,12 @@
 # Changelog
 
 
+## v0.3.1
+
+[changes]
+- improve `README.md`
+
+
 ## v0.3.0
 
 - initial commit
