@@ -56,11 +56,8 @@ defmodule OpenstexAdaptersOvh.Mixfile do
 
   defp docs() do
     [
-       main: "README.md",
-       extra_section: "GUIDE",
-       extras: [
-                "README.md": [path: "README.md", title: "GUIDE"]
-               ]
+    main: "Openstex.Adapters.Ovh",
+    extras: ["README.md"]
     ]
   end
 
