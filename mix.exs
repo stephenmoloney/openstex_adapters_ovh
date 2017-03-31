@@ -1,6 +1,6 @@
 defmodule OpenstexAdaptersOvh.Mixfile do
   use Mix.Project
-  @version "0.3.0"
+  @version "0.3.1"
   @elixir_versions "~> 1.4 or ~> 1.5"
 
   def project do
@@ -29,7 +29,7 @@ defmodule OpenstexAdaptersOvh.Mixfile do
   defp deps do
     [
       {:httpipe_adapters_hackney, ">= 0.10.0"},
-      {:ex_ovh, "~> 0.3"},
+      {:ex_ovh, ">= 0.3.2"},
       {:openstex, "~> 0.3"},
 
       # dev deps
