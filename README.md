@@ -13,7 +13,7 @@ for the [OVH API](https://github.com/stephenmoloney/ex_ovh).
 ```elixir
 defp deps() do
   [
-    {:openstex_adapters_ovh, ">= 0.3.1"}
+    {:openstex_adapters_ovh, ">= 0.3.2"}
   ]
 end
 ```

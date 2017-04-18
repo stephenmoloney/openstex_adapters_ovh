@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.2
+
+[bug fix]
+- `no match of right hand side value: %{ "description" => "app description"}`. No match due
+to fixing on "ex_ovh".
+
 
 ## v0.3.1
 

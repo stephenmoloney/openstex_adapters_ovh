@@ -18,13 +18,13 @@ defmodule Openstex.Adapters.Ovh.Keystone.Utils do
     |> ovh_client.request!()
     |> Map.get(:response) |> Map.get(:body)
     |> Enum.find(:nil,
-      fn(user) -> %{"description" => "ex_ovh"} = user end
+      fn(user) -> %{"description" => _description} = user end
     )
 
     ovh_user_id =
     case ovh_user do
       :nil ->
-        # create user for "ex_ovh" description
+        # create user for the description
         ExOvh.V1.Cloud.create_user(tenant_id, "ex_ovh")
         |> ovh_client.request!()
         |> Map.get(:response) |> Map.get(:body)
