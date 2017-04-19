@@ -154,9 +154,7 @@ defmodule Openstex.Adapters.Ovh.Config do
       headers: headers
     }
     {:ok, conn} = %HTTPipe.Conn{request: request, adapter_options: @default_options, adapter: @default_adapter}
-    |> Og.log_r(__ENV__, :debug)
     |> Openstex.Request.request(:nil)
-    |> Og.log_r(__ENV__, :warn)
 
     HTTPipe.Conn.get_resp_header(conn, header)
   end

@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.4
+
+[bug fix]
+- Remove Og logs - no longer a dependency.
+
 ## v0.3.3
 
 [bug fix]
