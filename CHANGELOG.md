@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.3.3
+
+[bug fix]
+- Incorrect regions. OVH regions changed recently - now fetch them from the identity token if left
+absent in the `config.exs` as a default.
+
+
 ## v0.3.2
 
 [bug fix]

@@ -13,7 +13,7 @@ for the [OVH API](https://github.com/stephenmoloney/ex_ovh).
 ```elixir
 defp deps() do
   [
-    {:openstex_adapters_ovh, ">= 0.3.2"}
+    {:openstex_adapters_ovh, ">= 0.3.3"}
   ]
 end
 ```
@@ -72,7 +72,7 @@ config :my_app, MyApp.Client,
     swift: [
       account_temp_url_key1: System.get_env("MY_APP_CLIENT_TEMP_URL_KEY1"), # defaults to :nil if absent
       account_temp_url_key2: System.get_env("MY_APP_CLIENT_TEMP_URL_KEY2"), # defaults to :nil if absent
-      region: :nil # defaults to "SBG1" if not set.
+      region: :nil #  set to "SBG3" or "GRA3" or "BHS3" -- but check with OVH as this may change.
     ],
     hackney: [
       timeout: 20000,

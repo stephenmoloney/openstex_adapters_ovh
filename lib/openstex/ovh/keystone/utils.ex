@@ -33,8 +33,8 @@ defmodule Openstex.Adapters.Ovh.Keystone.Utils do
         ovh_user["id"]
     end
 
-    {:ok, conn} = ExOvh.V1.Cloud.regenerate_credentials(tenant_id, ovh_user_id)
-    |> ovh_client.request()
+
+    {:ok, conn} = get_credentials(ovh_client, tenant_id, ovh_user_id)
     password = conn.response.body["password"] || raise("Password not found")
     username = conn.response.body["username"] || raise("Username not found")
     endpoint = keystone_config[:endpoint] || "https://auth.cloud.ovh.net/v2.0"
@@ -48,6 +48,40 @@ defmodule Openstex.Adapters.Ovh.Keystone.Utils do
   defp supervisor_exists?(ovh_client) do
     Module.concat(ExOvh.Config, ovh_client) in Process.registered()
   end
+
+  defp get_credentials(ovh_client, tenant_id, ovh_user_id) do
+    with {:ok, conn} <- ExOvh.V1.Cloud.regenerate_credentials(tenant_id, ovh_user_id)
+                        |> ovh_client.request() do
+      {:ok, conn}
+    else
+      {:error, conn} -> get_credentials(ovh_client, tenant_id, ovh_user_id, 3)
+      {:error, conn} -> raise(conn.response.body["message"])
+    end
+  end
+  defp get_credentials(ovh_client, tenant_id, ovh_user_id, retries) when is_integer(retries) do
+    with {:ok, conn} <- ExOvh.V1.Cloud.regenerate_credentials(tenant_id, ovh_user_id)
+                        |> ovh_client.request() do
+      {:ok, conn}
+    else
+      {:error, % HTTPipe.Conn{response: %HTTPipe.Response{status_code: 500}}} ->
+        get_credentials(tenant_id, ovh_user_id, (retries - 1))
+      {:error, conn} ->
+        raise(conn.response.body["message"])
+    end
+  end
+  defp get_credentials(ovh_client, tenant_id, ovh_user_id, 0) do
+    with {:ok, conn} <- ExOvh.V1.Cloud.regenerate_credentials(tenant_id, ovh_user_id)
+                        |> ovh_client.request() do
+      {:ok, conn}
+    else
+      {:error, conn} ->
+        raise(conn.response.body["message"])
+      {:error, conn} ->
+        raise(conn.response.body["message"])
+    end
+  end
+
+
 
 end
 

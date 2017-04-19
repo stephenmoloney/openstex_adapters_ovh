@@ -3,7 +3,6 @@ defmodule Openstex.Adapters.Ovh.Config do
   @default_headers [{"Content-Type", "application/json; charset=utf-8"}]
   @default_options [timeout: 10000, recv_timeout: 30000]
   @default_adapter HTTPipe.Adapters.Hackney
-  @default_ovh_region "SBG1"
   alias Openstex.Keystone.V2.Helpers.Identity
   alias Openstex.Adapters.Ovh.Keystone.Utils
   use Openstex.Adapter.Config
@@ -42,7 +41,7 @@ defmodule Openstex.Adapters.Ovh.Config do
 
 
   defp config({openstex_client, ovh_client}, otp_app, identity) do
-    swift_config = swift_config(openstex_client, otp_app)
+    swift_config = swift_config(openstex_client, otp_app, identity)
     keystone_config = keystone_config(openstex_client, otp_app, identity)
     [
      ovh: ovh_client.ovh_config(),
@@ -74,7 +73,7 @@ defmodule Openstex.Adapters.Ovh.Config do
     ]
   end
 
-  defp swift_config(openstex_client, otp_app) do
+  defp swift_config(openstex_client, otp_app, identity) do
 
     swift_config = get_swift_config_from_env(openstex_client, otp_app)
 
@@ -102,7 +101,7 @@ defmodule Openstex.Adapters.Ovh.Config do
       IO.puts(:stdio, error_msg)
     end
 
-    region = swift_config[:region] || "SBG1"
+    region = swift_config[:region] || default_ovh_region(identity)
 
     [
     account_temp_url_key1: account_temp_url_key1,
@@ -124,7 +123,6 @@ defmodule Openstex.Adapters.Ovh.Config do
 
 
   defp get_account_temp_url(openstex_client, otp_app, key_atom) do
-
     ovh_client = Module.concat(openstex_client, Ovh)
     Application.ensure_all_started(:ex_ovh)
     unless supervisor_exists?(ovh_client), do: ovh_client.start_link()
@@ -156,7 +154,9 @@ defmodule Openstex.Adapters.Ovh.Config do
       headers: headers
     }
     {:ok, conn} = %HTTPipe.Conn{request: request, adapter_options: @default_options, adapter: @default_adapter}
+    |> Og.log_r(__ENV__, :debug)
     |> Openstex.Request.request(:nil)
+    |> Og.log_r(__ENV__, :warn)
 
     HTTPipe.Conn.get_resp_header(conn, header)
   end
@@ -165,7 +165,7 @@ defmodule Openstex.Adapters.Ovh.Config do
 
     swift_config = get_swift_config_from_env(openstex_client, otp_app)
 
-    region = swift_config[:region] || @default_ovh_region
+    region = swift_config[:region] || default_ovh_region(identity)
 
     identity
     |> Map.get(:service_catalog)
@@ -179,5 +179,14 @@ defmodule Openstex.Adapters.Ovh.Config do
     Module.concat(ExOvh.Config, ovh_client) in Process.registered()
   end
 
+  defp default_ovh_region(identity) do
+    identity
+    |> Map.get(:service_catalog)
+    |> Enum.find(fn(%Identity.Service{} = service) -> service.name == swift_service_name() && service.type == swift_service_type() end)
+    |> Map.get(:endpoints)
+    |> Enum.map(fn(%Identity.Endpoint{} = endpoint) -> endpoint.region end)
+    |> Enum.sort()
+    |> List.first()
+  end
 
 end
