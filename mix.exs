@@ -21,6 +21,7 @@ defmodule OpenstexAdaptersOvh.Mixfile do
 
   def application do
     [
+      mod: [],
       applications: [:logger, :httpipe_adapters_hackney, :ex_ovh, :openstex]
     ]
   end
