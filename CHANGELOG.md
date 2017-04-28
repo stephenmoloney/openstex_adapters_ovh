@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.3.7
+
+[changes]
+- Bump dependency versions
+
 ## v0.3.6
 
 [changes]
