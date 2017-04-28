@@ -1,10 +1,9 @@
 # Changelog
 
-## v0.3.5
+## v0.3.6
 
 [changes]
-- Add dependencies to application as emitting warnings when making releases.
-- Remove a few compiler warnings
+- Bump dependency versions
 
 ## v0.3.4
 
