@@ -54,8 +54,7 @@ defmodule Openstex.Adapters.Ovh.Keystone.Utils do
                         |> ovh_client.request() do
       {:ok, conn}
     else
-      {:error, conn} -> get_credentials(ovh_client, tenant_id, ovh_user_id, 3)
-      {:error, conn} -> raise(conn.response.body["message"])
+      {:error, _conn} -> get_credentials(ovh_client, tenant_id, ovh_user_id, 3)
     end
   end
   defp get_credentials(ovh_client, tenant_id, ovh_user_id, retries) when is_integer(retries) do
@@ -74,8 +73,6 @@ defmodule Openstex.Adapters.Ovh.Keystone.Utils do
                         |> ovh_client.request() do
       {:ok, conn}
     else
-      {:error, conn} ->
-        raise(conn.response.body["message"])
       {:error, conn} ->
         raise(conn.response.body["message"])
     end

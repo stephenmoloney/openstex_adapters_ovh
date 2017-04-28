@@ -1,6 +1,6 @@
 defmodule OpenstexAdaptersOvh.Mixfile do
   use Mix.Project
-  @version "0.3.4"
+  @version "0.3.5"
   @elixir_versions "~> 1.4 or ~> 1.5"
 
   def project do
@@ -21,7 +21,7 @@ defmodule OpenstexAdaptersOvh.Mixfile do
 
   def application do
     [
-      applications: [:logger]
+      applications: [:logger, :httpipe_adapters_hackney, :ex_ovh, :openstex]
     ]
   end
 
