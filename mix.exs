@@ -29,7 +29,7 @@ defmodule OpenstexAdaptersOvh.Mixfile do
   defp deps do
     [
       {:httpipe_adapters_hackney, ">= 0.10.0"},
-      {:ex_ovh, ">= 0.3.3"},
+      {:ex_ovh, ">= 0.3.5"},
       {:openstex, "~> 0.3"},
 
       # dev deps
