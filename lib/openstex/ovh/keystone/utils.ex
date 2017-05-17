@@ -2,6 +2,7 @@ defmodule Openstex.Adapters.Ovh.Keystone.Utils do
   @moduledoc :false
   alias Openstex.Keystone.V2.Helpers, as: Keystone
   alias Openstex.Adapters.Ovh.Config
+  @delay_for_credentials_to_take_effect 12000
 
 
   @doc :false
@@ -40,7 +41,7 @@ defmodule Openstex.Adapters.Ovh.Keystone.Utils do
     endpoint = keystone_config[:endpoint] || "https://auth.cloud.ovh.net/v2.0"
 
     # make sure the regenerate credentials (in the external ovh api) had a chance to take effect
-    :timer.sleep(1000)
+    :timer.sleep(@delay_for_credentials_to_take_effect)
 
     Keystone.authenticate!(endpoint, username, password, [tenant_id: tenant_id])
   end
@@ -77,8 +78,6 @@ defmodule Openstex.Adapters.Ovh.Keystone.Utils do
         raise(conn.response.body["message"])
     end
   end
-
-
 
 end
 
