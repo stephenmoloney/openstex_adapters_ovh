@@ -1,6 +1,6 @@
 defmodule OpenstexAdaptersOvh.Mixfile do
   use Mix.Project
-  @version "0.3.7"
+  @version "0.3.8"
   @elixir_versions "~> 1.4 or ~> 1.5"
 
   def project do
