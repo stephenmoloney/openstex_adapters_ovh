@@ -6,6 +6,7 @@
 - introduce a longer delay when changing the credentials - seems to
 be that it takes some time for the new username/password to become valid.
 `@delay_for_credentials_to_take_effect 12000` - wait 12 seconds
+- uses `httpipe_adapters_hackney` `0.11` with fix for `:head` requests.
 
 
 ## v0.3.7
