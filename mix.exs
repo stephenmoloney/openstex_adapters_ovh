@@ -1,7 +1,7 @@
 defmodule OpenstexAdaptersOvh.Mixfile do
   use Mix.Project
-  @version "0.3.8"
-  @elixir_versions "~> 1.4 or ~> 1.5"
+  @version "0.4.0"
+  @elixir_versions "~> 1.5"
 
   def project do
     [
@@ -29,8 +29,8 @@ defmodule OpenstexAdaptersOvh.Mixfile do
   defp deps do
     [
       {:httpipe_adapters_hackney, "~> 0.11"},
-      {:ex_ovh, "~> 0.3"},
-      {:openstex, "~> 0.3"},
+      {:ex_ovh, "~> 0.4"},
+      {:openstex, "~> 0.4"},
 
       # dev deps
       {:markdown, github: "devinus/markdown", only: [:dev]},
